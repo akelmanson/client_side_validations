@@ -161,7 +161,7 @@ var clientSideValidations = {
         }
       },
       numericality: function(element, options) {
-        if (!/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d*)?$/.test(element.val()) && element.val() != '') {
+        if (!clientSideValidations.patterns.numericality.test(element.val()) && element.val() != '') {
           return options.messages.numericality;
         }
 
@@ -392,6 +392,9 @@ var clientSideValidations = {
         clientSideValidations.formBuilders['ActionView::Helpers::FormBuilder'].remove(element, settings, message);
       }
     }
+  },
+  patterns: {
+    numericality: /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d*)?$/
   },
   callbacks: {
     element: {

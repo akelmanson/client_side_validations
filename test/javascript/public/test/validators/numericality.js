@@ -14,6 +14,16 @@ test('when value is a decimal number', function() {
   equal(clientSideValidations.validators.local.numericality(element, options), undefined);
 });
 
+test('when there is a custom numericality pattern', function() {
+  var element = $('<input type="text" />');
+  var options = { messages: { numericality: "failed validation" } };
+  element.val('123,45');
+  orig_pattern = clientSideValidations.patterns.numericality;
+  clientSideValidations.patterns.numericality = /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d*)?$/
+  equal(clientSideValidations.validators.local.numericality(element, options), undefined);
+  clientSideValidations.patterns.numericality = orig_pattern;
+});
+
 test('when value is not a number', function() {
   var element = $('<input type="text" />');
   var options = { messages: { numericality: "failed validation" } };
